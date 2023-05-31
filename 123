@@ -1,0 +1,69 @@
+import java.util.Random;
+
+public class GuessNumberGame {  
+    public static void main(String[] args) {  
+        // 创建一个玩家对象和一个程序对象  
+        Player player = new Player();  
+        Game game = new Game(player);
+
+        // 开始游戏  
+        game.start();  
+    }  
+}
+
+class Player {  
+    private int guess;  
+    private int answer;
+
+    public Player() {  
+        // 初始化玩家的猜数和答案  
+        guess = 0;  
+        answer = 0;  
+    }
+
+    public void guessNumber() {  
+        // 生成一个 1 到 100 之间的随机数  
+        Random random = new Random();  
+        int randomNumber = random.nextInt(100) + 1;
+
+        // 如果玩家猜的数字比程序生成的数字小，提示玩家猜的数字太小了  
+        if (guess < randomNumber) {  
+            System.out.println("Your guess is too low.");  
+        }
+
+        // 如果玩家猜的数字比程序生成的数字大，提示玩家猜的数字太大了  
+        else if (guess > randomNumber) {  
+            System.out.println("Your guess is too high.");  
+        }
+
+        // 如果玩家猜的数字与程序生成的数字相同，提示玩家猜对了  
+        else {  
+            System.out.println("Congratulations! You guessed the number in " + (guess - randomNumber) + " guesses.");  
+        }
+
+        // 更新玩家的猜数和答案  
+        guess = randomNumber;  
+        answer = randomNumber;  
+    }  
+}
+
+class Game {  
+    private Player player;
+
+    public Game(Player player) {  
+        this.player = player;  
+    }
+
+    public void start() {  
+        // 创建一个随机数生成器  
+        Random random = new Random();
+
+        // 循环让玩家猜测数字，直到玩家猜对了为止  
+        while (player.guessNumber() == player.answer) {  
+            System.out.println("Please guess a number between 1 and 100.");  
+            player.guessNumber();  
+        }
+
+        System.out.println("Congratulations! You guessed the number in " + player.guessNumber() + " guesses.");  
+    }  
+}
